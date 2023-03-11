@@ -506,3 +506,8 @@ footer .credit p {
         font-size: 55%;
     }
 }
+
+.about .row .about-card img {
+    border-radius: 2%;
+    width: 30%;
+}
