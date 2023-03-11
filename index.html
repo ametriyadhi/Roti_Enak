@@ -163,18 +163,19 @@
     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam, eaque!</p>
     <div class="row">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.2278685281244!2d106.92153786534604!3d-6.3645489953944905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69934f7ea8f3f3%3A0x5858a7723afd992b!2sPs.%20Kranggan%20Mas%20Lantai%2C%20RT.004%2FRW.004%2C%20Jatisampurna%2C%20Kec.%20Jatisampurna%2C%20Kota%20Bks%2C%20Jawa%20Barat%2017433!5e0!3m2!1sen!2sid!4v1678440328286!5m2!1sen!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="map"></iframe>
-        <form action="" method="post">
+        <form name="submit-to-google-sheet" action="" method="post">
+            <div id="form_alerts"></div>
             <div class="input-group">
                 <i data-feather="user">-</i>
-                <input type="text" placeholder="nama">
+                <input type="text" placeholder="nama" name="nama">
             </div>
             <div class="input-group">
                 <i data-feather="mail">-</i>
-                <input type="email" placeholder="email">
+                <input type="email" placeholder="email" name="email">
             </div>
             <div class="input-group">
                 <i data-feather="phone">-</i>
-                <input type="tel" placeholder="no hp">
+                <input type="tel" placeholder="no hp" name="no hp">
             </div>
             <button type="submit" class="btn"> Kirim pesan</button>
         </form>
@@ -213,5 +214,20 @@
 
 <!-- My Javasript -->
       <script src="js/script.js"></script>
-</body>
-</html>d
+
+
+<!-- Google Script -->
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzJio_hjd-ubjXp4_1XQHgTxSrDlr5cN0RhINca5hmMRZWU6ZYOyjRU_7HmBWY16EbB/exec'
+    const form = document.forms['submit-to-google-sheet']
+  
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => $("#form_alerts").html("<div class='alert alert-success'>Data berhasil dikirim.</div>"))
+        .catch(error => $("#form_alerts").html("<div class='alert alert-danger'>Data gagal terkirim!.</div>"))
+        form.reset();
+    })
+  </script>
+
+</body> 
